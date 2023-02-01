@@ -4,6 +4,8 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.theatermax.ui.navigation.NavigationDestination
+import com.example.theatermax.ui.navigation.theaterTab
 import com.example.theatermax.utils.TheaterMaxNavigationType
 
 
@@ -25,8 +27,13 @@ fun TheaterMaxApp(
     }
 
     TheaterMainScreen(
-        navigationType = navigationType
+        navigationType = navigationType,
+        navigationTabList = theaterTab,
+        onTabClicked = {
+
+        }
     )
+
 }
 
 

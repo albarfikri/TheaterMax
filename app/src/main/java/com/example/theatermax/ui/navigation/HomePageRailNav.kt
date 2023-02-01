@@ -1,4 +1,4 @@
-package com.example.theatermax.ui.railnav
+package com.example.theatermax.ui.navigation.railnav
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
