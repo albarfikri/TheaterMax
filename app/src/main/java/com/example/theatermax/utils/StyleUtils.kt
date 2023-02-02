@@ -5,6 +5,10 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
+object StyleUtils {
+    val DisabledInteractionSource = DisabledInteractionSource()
+}
+
 class DisabledInteractionSource : MutableInteractionSource {
 
     override val interactions: Flow<Interaction> = emptyFlow()

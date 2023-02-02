@@ -7,10 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -19,6 +16,7 @@ import com.example.theatermax.data.TheaterUiState
 import com.example.theatermax.ui.navigation.NavigationDestination
 import com.example.theatermax.utils.DisabledInteractionSource
 import com.example.theatermax.utils.NavigationItems
+import com.example.theatermax.utils.StyleUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
@@ -30,18 +28,24 @@ fun HomePageBottomNavBar(
     navigationTabList: List<NavigationDestination>,
     modifier: Modifier = Modifier
 ) {
-    val disableInteraction = remember { DisabledInteractionSource() }
+    val disableInteraction = remember { StyleUtils.DisabledInteractionSource }
     NavigationBar(
         modifier = modifier.fillMaxWidth()
     ) {
         for (navItem in navigationTabList) {
-            NavigationBarItem(selected = currentTab == navItem.route, onClick = {
-                onTabClicked(navItem.route)
-            }, icon = {
-                Icon(
-                    imageVector = navItem.icon, contentDescription = navItem.contentDescription
-                )
-            }, interactionSource = disableInteraction
+            NavigationBarItem(
+                selected = currentTab == navItem.route,
+                onClick = {
+                    onTabClicked(navItem.route)
+                }, icon = {
+                    Icon(
+                        imageVector = navItem.icon, contentDescription = navItem.contentDescription
+                    )
+                },
+                label = {
+                    Text(text = navItem.route.toString())
+                },
+                interactionSource = disableInteraction
             )
         }
     }
