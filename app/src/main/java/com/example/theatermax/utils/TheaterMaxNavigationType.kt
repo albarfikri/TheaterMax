@@ -5,3 +5,9 @@ enum class TheaterMaxNavigationType {
     NAVIGATION_RAIL,
     PERMANENT_NAVIGATION
 }
+
+enum class NavigationItems{
+    HOME,
+    TRENDING,
+    TVSHOW
+}

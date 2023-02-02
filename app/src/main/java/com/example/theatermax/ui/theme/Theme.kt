@@ -18,13 +18,21 @@ import androidx.core.view.ViewCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Primary,
     secondary = Secondary,
-    tertiary = Tertiary
+    tertiary = Tertiary,
+    onTertiary = Tertiary,
+    inverseOnSurface = InverseOnSurface,
+    tertiaryContainer = LightTertiaryContainer,
+    onTertiaryContainer = LightTertiaryContainer,
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
     secondary = Secondary,
-    tertiary = Tertiary
+    tertiary = Tertiary,
+    onTertiary = Tertiary,
+    inverseOnSurface = InverseOnSurface,
+    tertiaryContainer = LightTertiaryContainer,
+    onTertiaryContainer = LightTertiaryContainer,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

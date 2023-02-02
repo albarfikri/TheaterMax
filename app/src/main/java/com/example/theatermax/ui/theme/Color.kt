@@ -7,6 +7,9 @@ import com.example.theatermax.R
 val Primary = Color(0xFF063970)
 val Secondary = Color(0xFFAD1457)
 val Tertiary = Color(0xFFFFFFFF)
+val InverseOnSurface = Color(0xFFF9EFE6)
+val LightOnTertiary = Color(0xFFF9EFE6)
+val LightTertiaryContainer = Color(0xFFD3EABC)
 
 //val Purple80 = Color(0xFFD0BCFF)
 //val PurpleGrey80 = Color(0xFFCCC2DC)

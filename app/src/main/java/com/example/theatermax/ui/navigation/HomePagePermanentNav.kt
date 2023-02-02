@@ -1,6 +1,5 @@
-package com.example.theatermax.ui.navigation.permanentnav
+package com.example.theatermax.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
