@@ -56,18 +56,32 @@ fun TheaterMaxApp(
     Scaffold(bottomBar = {
         AnimatedVisibility(visible = navigationType == TheaterMaxNavigationType.BOTTOM_NAVIGATION) {
             HomePageBottomNavBar(
-                currentTab = theaterUiState.currentSelectedTab, onTabClicked = { navItem ->
+                currentTab = theaterUiState.currentSelectedTab,
+                onTabClicked = { navItem ->
                     viewModel.updateSelectedItemMenu(navItem)
-                }, navigationTabList = theaterTab
+                },
+                navigationTabList = theaterTab
             )
         }
     }) { innerPadding ->
         Row(modifier = modifier.fillMaxSize()) {
             AnimatedVisibility(visible = navigationType == TheaterMaxNavigationType.PERMANENT_NAVIGATION) {
-                HomePagePermanentNav()
+                HomePagePermanentNav(
+                    currentTab = theaterUiState.currentSelectedTab,
+                    onTabClicked = { navItem ->
+                        viewModel.updateSelectedItemMenu(navItem)
+                    },
+                    navigationTabList = theaterTab
+                )
             }
             AnimatedVisibility(visible = navigationType == TheaterMaxNavigationType.NAVIGATION_RAIL) {
-                HomePageRailNav()
+                HomePageRailNav(
+                    currentTab = theaterUiState.currentSelectedTab,
+                    onTabClicked = { navItem ->
+                        viewModel.updateSelectedItemMenu(navItem)
+                    },
+                    navigationTabList = theaterTab
+                )
             }
             Column(
                 modifier = modifier

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import com.example.theatermax.data.TheaterUiState
 import com.example.theatermax.ui.navigation.NavigationDestination
 import com.example.theatermax.utils.DisabledInteractionSource
@@ -37,13 +38,17 @@ fun HomePageBottomNavBar(
                 selected = currentTab == navItem.route,
                 onClick = {
                     onTabClicked(navItem.route)
-                }, icon = {
+                },
+                icon = {
                     Icon(
                         imageVector = navItem.icon, contentDescription = navItem.contentDescription
                     )
                 },
                 label = {
-                    Text(text = navItem.route.toString())
+                    Text(
+                        text = navItem.route.toString(),
+                        style = MaterialTheme.typography.labelMedium
+                    )
                 },
                 interactionSource = disableInteraction
             )
