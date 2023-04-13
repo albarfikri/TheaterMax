@@ -18,8 +18,12 @@ import androidx.core.view.ViewCompat
 private val DarkColorScheme = darkColorScheme(
     primary = Primary,
     secondary = Secondary,
+    onPrimary = OnPrimary,
+    onSecondary = onSecondary,
+    onSurface = OnSurface,
     tertiary = Tertiary,
     onTertiary = Tertiary,
+    background = Background,
     inverseOnSurface = InverseOnSurface,
     tertiaryContainer = LightTertiaryContainer,
     onTertiaryContainer = LightTertiaryContainer,
@@ -28,8 +32,12 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
     secondary = Secondary,
+    onPrimary = OnPrimary,
+    onSecondary = onSecondary,
+    onSurface = OnSurface,
     tertiary = Tertiary,
     onTertiary = Tertiary,
+    background = Background,
     inverseOnSurface = InverseOnSurface,
     tertiaryContainer = LightTertiaryContainer,
     onTertiaryContainer = LightTertiaryContainer,
@@ -54,8 +62,7 @@ fun TheaterMaxTheme(
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (darkTheme) DarkColorScheme else LightColorScheme
         }
         darkTheme -> DarkColorScheme
         else -> LightColorScheme

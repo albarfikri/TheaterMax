@@ -7,6 +7,7 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.Navigation
 import com.example.theatermax.utils.NavigationItems
 import com.example.theatermax.utils.StyleUtils
 

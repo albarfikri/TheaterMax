@@ -1,27 +1,26 @@
 package com.example.theatermax.ui.navigation
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.indication
-import androidx.compose.foundation.interaction.Interaction
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.*
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import com.example.theatermax.data.TheaterUiState
-import com.example.theatermax.ui.navigation.NavigationDestination
-import com.example.theatermax.utils.DisabledInteractionSource
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.theatermax.utils.NavigationItems
 import com.example.theatermax.utils.StyleUtils
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 
-
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomePageBottomNavBar(
     currentTab: NavigationItems,
@@ -31,9 +30,21 @@ fun HomePageBottomNavBar(
 ) {
     val disableInteraction = remember { StyleUtils.DisabledInteractionSource }
     NavigationBar(
-        modifier = modifier.fillMaxWidth()
+        containerColor = MaterialTheme.colorScheme.primary,
+        modifier = modifier
+            .fillMaxWidth()
     ) {
         for (navItem in navigationTabList) {
+            val changedTextColor by animateColorAsState(
+                if (currentTab == navItem.route) MaterialTheme.colorScheme.onSurface else
+                    MaterialTheme.colorScheme.onPrimary
+            )
+
+            val changedIconColor by animateColorAsState(
+                if(currentTab == navItem.route) MaterialTheme.colorScheme.onSecondary else
+                    MaterialTheme.colorScheme.onPrimary
+            )
+
             NavigationBarItem(
                 selected = currentTab == navItem.route,
                 onClick = {
@@ -41,16 +52,22 @@ fun HomePageBottomNavBar(
                 },
                 icon = {
                     Icon(
-                        imageVector = navItem.icon, contentDescription = navItem.contentDescription
+                        imageVector = navItem.icon,
+                        contentDescription = navItem.contentDescription,
+                        tint = changedIconColor
                     )
                 },
                 label = {
                     Text(
-                        text = navItem.route.toString(),
-                        style = MaterialTheme.typography.labelMedium
+                        text = navItem.contentDescription,
+                        color = changedTextColor,
+                        fontSize = if(currentTab == navItem.route) 14.sp else 12.sp,
+                        style = if(currentTab==navItem.route)MaterialTheme.typography.labelLarge else
+                            MaterialTheme.typography.labelMedium,
+                        modifier = modifier.animateContentSize(animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessLow))
                     )
                 },
-                interactionSource = disableInteraction
+                interactionSource = disableInteraction,
             )
         }
     }

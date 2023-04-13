@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.theatermax.utils.NavigationItems
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomePagePermanentNav(
     currentTab: NavigationItems,
@@ -43,13 +42,13 @@ fun NavigationDrawerContent(
         modifier
             .wrapContentWidth()
             .fillMaxHeight()
-            .background(MaterialTheme.colorScheme.inverseOnSurface)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(12.dp)
     ) {
         for (navItem in navigationTabList) {
             NavigationDrawerItem(
                 label = {
-                    Text(text = navItem.route.toString())
+                    Text(text = navItem.contentDescription, color = MaterialTheme.colorScheme.onSurface)
                 },
                 icon = {
                     Icon(
