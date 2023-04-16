@@ -1,5 +1,6 @@
 package com.example.theatermax.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,15 +17,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.theatermax.ui.navigation.*
 import com.example.theatermax.ui.viewmodel.TheaterViewModel
+import com.example.theatermax.utils.NavigationItems
 import com.example.theatermax.utils.TheaterMaxNavigationType
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TheaterMaxApp(
     windowSize: WindowWidthSizeClass, modifier: Modifier = Modifier
@@ -49,20 +50,34 @@ fun TheaterMaxApp(
 
     val currentBackStack by navController.currentBackStackEntryAsState()
 
+    val currentDestination = currentBackStack?.destination?.route
+
+    val currentScreen = theaterTab.find {
+        it.route.toString() == currentDestination
+    } ?: Home
+
     // fetch current Destination
-    val currentDestination = currentBackStack?.destination
+
 
     Scaffold(bottomBar = {
         AnimatedVisibility(visible = navigationType == TheaterMaxNavigationType.BOTTOM_NAVIGATION) {
             HomePageBottomNavBar(
-                currentTab = theaterUiState.currentSelectedTab,
+                currentTab = currentScreen,
                 onTabClicked = { navItem ->
-                    viewModel.updateSelectedItemMenu(navItem)
+                    navController.navigateSingleTopTo(navItem.toString())
                 },
                 navigationTabList = theaterTab
             )
         }
     }) { innerPadding ->
+//        BackHandler {
+//            if (navController.currentBackStackEntry != null) {
+//                if (currentDestination != null) {
+//                    viewModel.updateSelectedItemMenu(currentDestination.value())
+//                }
+//                navController.popBackStack()
+//            }
+//        }
         Row(modifier = modifier.fillMaxSize()) {
             AnimatedVisibility(visible = navigationType == TheaterMaxNavigationType.PERMANENT_NAVIGATION) {
                 HomePagePermanentNav(
@@ -92,6 +107,23 @@ fun TheaterMaxApp(
                 )
             }
         }
+    }
+}
+
+fun NavHostController.navigateSingleTopTo(route: String) = this.navigate(route) {
+    popUpTo(this@navigateSingleTopTo.graph.findStartDestination().id) {
+        saveState = true
+    }
+    launchSingleTop = true
+    restoreState = true
+}
+
+fun String.value(): NavigationItems{
+    return when(this){
+        "HOME" -> NavigationItems.HOME
+        "TRENDING" -> NavigationItems.TRENDING
+        "TVSHOW" -> NavigationItems.TVSHOW
+        else -> {NavigationItems.HOME}
     }
 }
 
